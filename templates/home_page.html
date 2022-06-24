@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="google-site-verification" content="M1hmb9WVwcpZdaTFgxI45gMNVtNtOqhhpwet7PMsIRo" />
+
+    <!--  Bootstrap  -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
+    <!-- Fonts Online -->
+    <!--<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">-->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&display=swap" rel="stylesheet">
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-170503489-1"></script>
+</head>
+<body>
+
+
+{% if get %}
+    <div class="container jumbotron">
+        <form class="form form-control text-center" method="POST">
+            {% csrf_token %}
+            <input class="form-control m-2" type="text" name="first_name" placeholder="First Name">
+            <input class="form-control m-2" type="text" name="last_name" placeholder="Last Name" required>
+            <input class="form-control m-2" type="number" name="age" placeholder="Age" id="age" required>
+            <input class="form-control m-2" type="text" name="code" placeholder="Code" id="code" required>
+            <input class="form-control m-2" type="text" name="address" placeholder="Address">
+            <input class="form-control m-2" type="email" name="email" placeholder="Email">
+
+            <input class="btn btn-primary text-center" type="submit">
+
+        </form>
+    </div>
+
+
+{% else %}
+    <div class="jumbotron text-center">
+
+        <p> <b>First Name : </b> {{ first_name }} </p>
+        <p> <b>Last Name : </b> {{ last_name }} </p>
+        <p> <b>Age : </b> {{ age }} </p>
+        <p> <b>Code : </b> {{ code }} </p>
+        <p> <b>Address : </b> {{ address }} </p>
+        <p> <b>Email : </b> {{ email }} </p>
+
+    </div>
+
+{% endif %}
+
+
+<script>
+    $(document).ready(function(){
+        $("#code").keyup(function(){
+            let age = parseInt($("#age").val())
+            let code = $("#code").val();
+            if((age <= 18 && code === "B")
+                || (age > 18 && code === "A")
+                || (code.length > 1)
+            ){
+                console.log(code);
+                alert("Code not Allowed!")
+                $('#code').val('');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
